@@ -1,14 +1,14 @@
 "use strict"
 //==========================================
-import { 
+import {
     showErrorMessage,
     setBasketLocalStorage,
     getBasketLocalStorage,
     checkingRelevanceValueBasket
 } from './utils.js';
 
-import { 
-    COUNT_SHOW_CARDS_CLICK, 
+import {
+    COUNT_SHOW_CARDS_CLICK,
     ERROR_SERVER,
     NO_PRODUCTS_IN_THIS_CATEGORY
 } from './constants.js';
@@ -21,11 +21,34 @@ let productsData = [];
 
 
 
+getProducts()
+async function getProducts() {
+    try {
+        if (!productsData.length) {
+            const res = await fetch('../data/products.json');
+            if (!res.ok) {
+                throw new Error(res.statusText)
+            }
+            productsData = await res.json();
+        }
+
+        if ((productsData.length > COUNT_SHOW_CARDS_CLICK) &&
+            btnShowCards.classList.contains('none')) {
+            btnShowCards.classList.remove('none')
+        }
+
+        renderStarPage(productsData)
+
+    } catch (err) {
+        showErrorMessage(ERROR_SERVER);
+        console.log(err)
+    }
+}
 
 
+function renderStarPage(data) {
 
-
-
+}
 
 
 // Рендер карточки
@@ -33,8 +56,8 @@ function createCards(data) {
     data.forEach(card => {
         const { id, img, title, price, discount } = card;
         const priceDiscount = price - ((price * discount) / 100);
-		const cardItem = 
-			`
+        const cardItem =
+            `
                 <div class="card" data-product-id="${id}">
                     <div class="card__top">
                         <a href="/card.html?id=${id}" class="card__image">
@@ -56,7 +79,7 @@ function createCards(data) {
                 </div>
             `
         cards.insertAdjacentHTML('beforeend', cardItem);
-	});
+    });
 }
 
 
