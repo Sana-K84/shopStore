@@ -19,9 +19,10 @@ let shownCards = COUNT_SHOW_CARDS_CLICK;
 let countClickBtnShowCards = 1;
 let productsData = [];
 
-
-
 getProducts()
+
+
+btnShowCards.addEventListener('click', sliceArrCards)
 async function getProducts() {
     try {
         if (!productsData.length) {
@@ -87,6 +88,16 @@ function createCards(data) {
     });
 }
 
+function sliceArrCards() {
+    if (shownCards >= productsData.length) {
+        return
+    }
+    countClickBtnShowCards++;
+    const countShowCards = COUNT_SHOW_CARDS_CLICK * countClickBtnShowCards;
+    const arrCards = productsData.slice(shownCards, countShowCards);
+    createCards(arrCards);
+
+}
 
 
 
