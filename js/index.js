@@ -37,7 +37,7 @@ async function getProducts() {
             btnShowCards.classList.remove('none')
         }
 
-        renderStarPage(productsData)
+        renderStartPage(productsData)
 
     } catch (err) {
         showErrorMessage(ERROR_SERVER);
@@ -46,8 +46,13 @@ async function getProducts() {
 }
 
 
-function renderStarPage(data) {
-
+function renderStartPage(data) {
+    if (!data || !data.length) {
+        showErrorMessage(NO_PRODUCTS_IN_THIS_CATEGORY);
+        return
+    }
+    const arrCards = data.slice(0, COUNT_SHOW_CARDS_CLICK);
+    createCards(arrCards)
 }
 
 
