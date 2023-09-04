@@ -119,6 +119,20 @@ function handleCardClick(event) {
 
     basket.push(id);
     setBasketLocalStorage(basket);
-
+    checkingActiveButtons(basket)
 }
 
+function checkingActiveButtons(basket) {
+    const buttons = document.querySelectorAll('.card__add');
+
+    buttons.forEach(btn => {
+        const card = btn.closest('.card');
+        const id = card.dataset.productId;
+        const isInBasket = basket.includes(id);
+
+        btn.disabled = isInBasket;
+        btn.classList.toggle('active', isInBasket);
+        btn.textContent = isInBasket ? "В корзине" : "В корзину";
+    })
+
+}
