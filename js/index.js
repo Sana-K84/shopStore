@@ -23,6 +23,9 @@ getProducts()
 
 
 btnShowCards.addEventListener('click', sliceArrCards)
+cards.addEventListener('click', handleCardClick)
+
+
 async function getProducts() {
     try {
         if (!productsData.length) {
@@ -96,8 +99,26 @@ function sliceArrCards() {
     const countShowCards = COUNT_SHOW_CARDS_CLICK * countClickBtnShowCards;
     const arrCards = productsData.slice(shownCards, countShowCards);
     createCards(arrCards);
+    shownCards = cards.children.length;
+
+    if (shownCards >= productsData.length) {
+        btnShowCards.classList.add('none')
+    }
 
 }
 
+function handleCardClick(event) {
+    const targetButton = event.target.closest('.card__add');
+    if (!targetButton) return
 
+    const card = targetButton.closest('.card');
+    const id = card.dataset.productId;
+
+    const basket = getBasketLocalStorage();
+    if (basket.includes(id)) return
+
+    basket.push(id);
+    setBasketLocalStorage(basket);
+
+}
 
