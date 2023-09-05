@@ -29,7 +29,31 @@ async function getProducts() {
     }
 }
 
+function getParameterFromURL(parameter) {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get(parameter);
+}
 
+function loadProductDetails(data) {
+    if (!data || !data.length) {
+        showErrorMessage(ERROR_SERVER);
+        return
+    }
+    checkingRelevanceValueBasket(data);
+
+    const productId = Number(getParameterFromURL('id'));
+
+    if (!productId) {
+        showErrorMessage(PRODUCT_INFORMATION_NOT_FOUND);
+        return
+    }
+    const findProduct = data.find(card => card.id === productId)
+    if (!findProduct) {
+        showErrorMessage(ERROR_SERVER);
+        return
+    }
+    renderInfoProduct(findProduct)
+}
 
 
 
