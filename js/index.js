@@ -21,7 +21,6 @@ let productsData = [];
 
 getProducts()
 
-
 btnShowCards.addEventListener('click', sliceArrCards)
 cards.addEventListener('click', handleCardClick)
 
@@ -57,6 +56,12 @@ function renderStartPage(data) {
     }
     const arrCards = data.slice(0, COUNT_SHOW_CARDS_CLICK);
     createCards(arrCards)
+
+    checkingRelevanceValueBasket(data);
+
+
+    const basket = getBasketLocalStorage();
+    checkingActiveButtons(basket)
 }
 
 

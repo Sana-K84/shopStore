@@ -1,7 +1,7 @@
 "use strict"
 //==========================================
 import { ERROR_SERVER, PRODUCT_INFORMATION_NOT_FOUND } from './constants.js';
-import { 
+import {
     showErrorMessage,
     checkingRelevanceValueBasket
 } from './utils.js';
@@ -19,7 +19,7 @@ let productsData = [];
 function renderInfoProduct(product) {
     const { img, title, price, discount, descr } = product;
     const priceDiscount = price - ((price * discount) / 100);
-    const productItem = 
+    const productItem =
         `
         <div class="product">
             <h2 class="product__title">${title}</h2>
