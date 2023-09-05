@@ -1,7 +1,7 @@
 "use strict"
 //==========================================
 import { ERROR_SERVER, NO_ITEMS_CART } from './constants.js';
-import { 
+import {
     showErrorMessage,
     setBasketLocalStorage,
     getBasketLocalStorage,
@@ -11,11 +11,52 @@ import {
 const cart = document.querySelector('.cart');
 let productsData = [];
 
+getProducts()
 
+async function getProducts() {
+    try {
+        if (!productsData.length) {
+            const res = await fetch('../data/products.json');
+            if (!res.ok) {
+                throw new Error(res.statusText)
+            }
+            productsData = await res.json();
+        }
 
+        loadProductBasket(productsData);
 
+    } catch (err) {
+        showErrorMessage(ERROR_SERVER);
+        console.log(err)
+    }
+}
 
+function loadProductBasket(data) {
+    cart.textContent = '';
 
+    if (!data || !data.length) {
+        showErrorMessage(ERROR_SERVER);
+        return
+    }
+
+    checkingRelevanceValueBasket(data);
+
+    const basket = getBasketLocalStorage();
+
+    if (!basket || !basket.length) {
+        showErrorMessage(NO_ITEMS_CART);
+        return
+    }
+
+    const findProducts = data.filter(el => { basket.includes(String(el.id)) });
+
+    if (!findProducts.length) {
+        showErrorMessage(NO_ITEMS_CART);
+        return
+    }
+
+    renderProductsBasket(findProducts)
+}
 
 // Рендер товаров в корзине
 function renderProductsBasket(arr) {
@@ -23,8 +64,8 @@ function renderProductsBasket(arr) {
         const { id, img, title, price, discount } = card;
         const priceDiscount = price - ((price * discount) / 100);
 
-        const cardItem = 
-        `
+        const cardItem =
+            `
         <div class="cart__product" data-product-id="${id}">
             <div class="cart__img">
                 <img src="./images/${img}" alt="${title}">
