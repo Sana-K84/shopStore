@@ -1,6 +1,6 @@
 @import url('./reset.css');
 
-.cart{
+.cart {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
     position: relative;
 }
 
-.cart__del-card{
+.cart__del-card {
     position: absolute;
     top: -10px;
     right: -10px;
@@ -37,13 +37,13 @@
     width: 100px;
 }
 
-.cart__title{
+.cart__title {
     font-size: 20px;
     display: flex;
     align-items: center;
 }
 
-.cart__block-btns{
+.cart__block-btns {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,9 @@
     column-gap: 10px;
 }
 
-.cart__plus, .cart__count, .cart__minus {
+.cart__plus,
+.cart__count,
+.cart__minus {
     width: 50px;
     display: flex;
     justify-content: center;
@@ -62,11 +64,13 @@
     font-size: 20px;
 }
 
-.cart__plus, .cart__minus {
+.cart__plus,
+.cart__minus {
     cursor: pointer;
 }
 
-.cart__price, .cart__price-discount{
+.cart__price,
+.cart__price-discount {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,14 +87,25 @@
     text-align: center;
     border: 1px solid #70c05b;
     border-radius: 4px;
-    cursor: pointer; 
+    cursor: pointer;
     transition: 0.2s;
-    margin: 0 auto;
     width: 200px;
+    margin: auto;
 }
 
 .btn-send:hover {
     border: 1px solid #ff6633;
     background-color: #ff6633;
     color: #fff;
+}
+
+.total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+
+.total-price {
+    margin: auto;
 }

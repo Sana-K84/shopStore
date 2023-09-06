@@ -71,6 +71,7 @@ function delProductBasket(ev) {
     const newBasket = basket.filter(el => el !== id)
     setBasketLocalStorage(newBasket);
     getProducts()
+    totalPriceRender()
 }
 
 
@@ -104,6 +105,7 @@ function renderProductsBasket(arr) {
 
         cart.insertAdjacentHTML('beforeend', cardItem);
     });
+    totalPriceRender()
 }
 
 
@@ -138,4 +140,11 @@ function pieceCounter(ev) {
             cartPriceDiscount.textContent *= count.textContent
         }
     }
+    totalPriceRender()
+}
+function totalPriceRender() {
+    const price = document.querySelectorAll('.cart__price-discount span');
+    const totalPrice = document.querySelector('.total-price span');
+
+    totalPrice.textContent = [...price].reduce((acc, el) => acc += +el.innerText, 0)
 }
