@@ -12,7 +12,7 @@ const cart = document.querySelector('.cart');
 let productsData = [];
 
 getProducts()
-
+cart.addEventListener('click', delProductBasket)
 async function getProducts() {
     try {
         if (!productsData.length) {
@@ -48,7 +48,7 @@ function loadProductBasket(data) {
         return
     }
 
-    const findProducts = data.filter(el => { basket.includes(String(el.id)) });
+    const findProducts = data.filter(el => basket.includes(String(el.id)));
 
     if (!findProducts.length) {
         showErrorMessage(NO_ITEMS_CART);
@@ -57,6 +57,22 @@ function loadProductBasket(data) {
 
     renderProductsBasket(findProducts)
 }
+
+
+function delProductBasket(ev) {
+    const targetButton = ev.target.closest('.cart__del-card');
+    if (!targetButton) return
+
+    const card = targetButton.closest('.cart__product');
+    const id = card.dataset.productId;
+
+    const basket = getBasketLocalStorage();
+
+    const newBasket = basket.filter(el => el !== id)
+    setBasketLocalStorage(newBasket);
+    getProducts()
+}
+
 
 // Рендер товаров в корзине
 function renderProductsBasket(arr) {
