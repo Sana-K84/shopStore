@@ -105,3 +105,37 @@ function renderProductsBasket(arr) {
         cart.insertAdjacentHTML('beforeend', cardItem);
     });
 }
+
+
+cart.addEventListener('click', pieceCounter)
+
+function pieceCounter(ev) {
+
+    const cartBlockBtns = ev.target.closest('.cart__block-btns');
+    if (!cartBlockBtns) return
+    const targetBlockBtn = ev.target.classList.value;
+    const count = cartBlockBtns.querySelector('.cart__count');
+
+    const cartProduct = ev.target.closest('.cart__product');
+    const cartPrice = cartProduct.querySelector('.cart__price span');
+    const cartPriceDiscount = cartProduct.querySelector('.cart__price-discount span');
+
+    if (targetBlockBtn === 'cart__plus') {
+        cartPrice.textContent /= count.textContent;
+        cartPriceDiscount.textContent /= count.textContent;
+        count.textContent++;
+        cartPrice.textContent *= count.textContent
+        cartPriceDiscount.textContent *= count.textContent
+    }
+    if (targetBlockBtn === 'cart__minus') {
+        if (count.textContent === '1') {
+            count.textContent
+        } else {
+            cartPrice.textContent /= count.textContent
+            cartPriceDiscount.textContent /= count.textContent;
+            count.textContent--;
+            cartPrice.textContent *= count.textContent
+            cartPriceDiscount.textContent *= count.textContent
+        }
+    }
+}
